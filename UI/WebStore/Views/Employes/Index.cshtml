@@ -1,0 +1,48 @@
+﻿@model IEnumerable<WebStore.Models.Employee>
+
+<h3>Сотрудники</h3>
+
+<a asp-controller="Employes" asp-action="Edit" class="btn btn-default">Создать</a>
+
+<hr/>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th></th>
+            <th>Фамилия</th>
+            <th>Имя</th>
+            <th>Отчество</th>
+            <th>Возраст</th>
+            <th></th>
+            @if (User.IsInRole("Administrator"))
+            {
+                <th></th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var employee in Model)
+        {
+            <tr>
+                <td>@employee.Id</td>
+                <td><a asp-controller="Employes" asp-action="Edit" asp-route-id="@employee.Id"><i class="fa fa-edit"></i></a></td>
+                <td>@employee.SurName</td>
+                <td>@employee.FirstName</td>
+                <td>@employee.Patronymic</td>
+                <td>@employee.Age</td>
+                <td><a asp-controller="Employes" asp-action="Details" asp-route-id="@employee.Id">Детали</a></td>
+                @if (User.IsInRole("Administrator"))
+                {
+                    <td>
+                        <a asp-controller="Employes" asp-action="Delete" asp-route-id="@employee.Id">
+                            <i class="fa fa-times text-danger"></i>
+                        </a>
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
+
+<hr />

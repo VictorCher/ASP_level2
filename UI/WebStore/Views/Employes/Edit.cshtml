@@ -1,0 +1,57 @@
+﻿@model WebStore.Models.Employee
+@{
+    ViewData["Title"] = $"Редактирование сотрудника {(Model.Id == 0 ? (int?)null : Model.Id)}";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<h4>Сотрдуник</h4>
+<hr />
+
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" asp-controller="Employes" asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @*@Html.ValidationSummary(false, "Ошибка!", new { @class = "text-danger" })*@
+
+            <input asp-for="Id" type="hidden" />
+
+            <div class="form-group">
+                <label asp-for="SurName" class="control-label"></label>
+                <input asp-for="SurName" class="form-control" />
+                <span asp-validation-for="SurName" class="text-danger"></span>
+                @*@Html.ValidationMessageFor(m => m.SurName, "Ошибка!", new { @class = "text-danger" })*@
+            </div>
+
+            <div class="form-group">
+                <label asp-for="FirstName" class="control-label"></label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Patronymic" class="control-label"></label>
+                <input asp-for="Patronymic" class="form-control" />
+                <span asp-validation-for="Patronymic" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Age" class="control-label"></label>
+                <input asp-for="Age" class="form-control" />
+                <span asp-validation-for="Age" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <input type="submit" value="Сохранить" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-controller="Employes" asp-action="Index">Назад к списку</a>
+</div>
+
+@section Scripts{ 
+    @await Html.PartialAsync("_ValidationScripsPartial")
+}

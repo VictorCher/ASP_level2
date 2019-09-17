@@ -1,0 +1,27 @@
+﻿@model WebStore.Models.Employee
+
+<h3>Карточка сотрдуника</h3>
+
+<div>
+    <p>Фамилия:</p>
+    <p>@Model.SurName</p>
+</div>
+
+<div>
+    <p>Имя:</p>
+    <p>@Model.FirstName</p>
+</div>
+
+<div>
+    <p>Отчество:</p>
+    <p>@Model.Patronymic</p>
+</div>
+
+<div>
+    <p>Возраст:</p>
+    <p>@Model.Age</p>
+</div>
+
+<hr />
+
+<a asp-controller="Employes" asp-action="Index">К списку сотрудников</a>
