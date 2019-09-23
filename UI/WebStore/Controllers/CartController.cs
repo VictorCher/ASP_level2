@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Linq;
+using Microsoft.AspNetCore.Mvc;
+using WebStore.Domain.DTO.Order;
 using WebStore.Infrastructure.Interfaces;
 using WebStore.ViewModels;
 
@@ -59,7 +61,20 @@ namespace WebStore.Controllers
                     OrderViewModel = model
                 });
 
-            var order = _OrderService.CreateOrder(model, _CartService.TransformCart(), User.Identity.Name);
+            var create_order_model = new CreateOrderModel
+            {
+                OrderViewModel = model,
+                OrderItems = _CartService.TransformCart().Items
+                   .Select(item => new OrderItemDTO
+                    {
+                        Id = item.Key.Id,
+                        Price = item.Key.Price,
+                        Quantity = item.Value
+                    })
+                   .ToList()
+            };
+
+            var order = _OrderService.CreateOrder(create_order_model, User.Identity.Name);
 
             _CartService.RemoveAll();
 

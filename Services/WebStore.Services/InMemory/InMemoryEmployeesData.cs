@@ -28,6 +28,23 @@ namespace WebStore.Infrastructure.Implementations
             employee.Id = _Employes.Count == 0 ? 1 : _Employes.Max(e => e.Id) + 1;
             _Employes.Add(employee);
         }
+        public Employee UpdateEmployee(int id, Employee employee)
+        {
+            if(employee is null)
+                throw new ArgumentNullException(nameof(employee));
+
+            var db_employee = GetById(id);
+            if (db_employee is null)
+                throw new InvalidOperationException($"Сотрудник с id:{id} не найден");
+
+            db_employee.Id = employee.Id;
+            db_employee.FirstName = employee.FirstName;
+            db_employee.SurName = employee.SurName;
+            db_employee.Patronymic = employee.Patronymic;
+            db_employee.Age = employee.Age;
+
+            return db_employee;
+        }
 
         public void Delete(int id)
         {
@@ -37,5 +54,6 @@ namespace WebStore.Infrastructure.Implementations
         }
 
         public void SaveChanges() { }
+
     }
 }
