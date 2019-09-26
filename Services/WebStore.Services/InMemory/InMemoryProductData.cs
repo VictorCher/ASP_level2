@@ -2,6 +2,7 @@
 using System.Linq;
 using WebStore.Data;
 using WebStore.Domain.DTO;
+using WebStore.Domain.DTO.Product;
 using WebStore.Domain.Entities;
 using WebStore.Infrastructure.Interfaces;
 

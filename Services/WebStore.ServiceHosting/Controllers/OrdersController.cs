@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebStore.Domain.DTO.Order;
+using WebStore.Domain.Models;
 using WebStore.Infrastructure.Interfaces;
 
 namespace WebStore.ServiceHosting.Controllers

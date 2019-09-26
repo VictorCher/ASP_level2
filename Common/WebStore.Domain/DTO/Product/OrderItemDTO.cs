@@ -1,6 +1,6 @@
 ﻿using WebStore.Domain.Entities.Base;
 
-namespace WebStore.Domain.DTO.Order
+namespace WebStore.Domain.DTO.Product
 {
     public class OrderItemDTO : BaseEntity
     {

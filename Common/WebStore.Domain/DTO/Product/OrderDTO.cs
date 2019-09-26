@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using WebStore.Domain.DTO.Product;
 using WebStore.Domain.Entities.Base;
 
 namespace WebStore.Domain.DTO.Order

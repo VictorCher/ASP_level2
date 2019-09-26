@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using WebStore.Domain.DTO.Order;
 using WebStore.Domain.Entities;
+using WebStore.Domain.Models;
 using WebStore.ViewModels;
 
 namespace WebStore.Infrastructure.Interfaces

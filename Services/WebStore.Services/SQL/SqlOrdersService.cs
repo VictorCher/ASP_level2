@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.EntityFrameworkCore;
 using WebStore.DAL.Context;
 using WebStore.Domain.DTO.Order;
+using WebStore.Domain.DTO.Product;
 using WebStore.Domain.Entities;
+using WebStore.Domain.Models;
 using WebStore.Infrastructure.Interfaces;
-using WebStore.ViewModels;
 
 namespace WebStore.Infrastructure.Implementations
 {

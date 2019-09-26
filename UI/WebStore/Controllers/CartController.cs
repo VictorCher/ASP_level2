@@ -1,6 +1,8 @@
 ﻿using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using WebStore.Domain.DTO.Order;
+using WebStore.Domain.DTO.Product;
+using WebStore.Domain.Models;
 using WebStore.Infrastructure.Interfaces;
 using WebStore.ViewModels;
 
