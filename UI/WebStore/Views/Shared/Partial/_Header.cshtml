@@ -102,7 +102,13 @@
                             <li><a asp-controller="Home" asp-action="Error404">Ошибка 404</a></li>
                             <li><a asp-controller="Home" asp-action="ContactUs">Контакты</a></li>
                             <li><a asp-controller="Employes" asp-action="Index">Сотрудники</a></li>
-                            <li><a asp-controller="WebApiTest" asp-action="Index">WebAPI</a></li>
+                            <li class="dropdown">
+                                <a href="#">Тесты<i class="fa fa-angle-down"></i></a>
+                                <ul role="menu" class="sub-menu">
+                                    <li><a asp-controller="WebApiTest" asp-action="Index">WebAPI</a></li>
+                                    <li><a asp-controller="Home" asp-action="ThrowException">Тестовое исключение</a></li>
+                                </ul>
+                            </li>
                         </ul>
                     </div>
                 </div>
