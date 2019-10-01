@@ -6,6 +6,7 @@ using WebStore.Domain.DTO;
 using WebStore.Domain.DTO.Product;
 using WebStore.Domain.Entities;
 using WebStore.Infrastructure.Interfaces;
+using WebStore.Services.Map;
 
 namespace WebStore.Infrastructure.Implementations
 {
@@ -29,19 +30,7 @@ namespace WebStore.Infrastructure.Implementations
             if (Filter is null)
                 return products
                        .AsEnumerable()
-                       .Select(p => new ProductDTO
-                        {
-                            Id = p.Id,
-                            Name = p.Name,
-                            Order = p.Order,
-                            ImageUrl = p.ImageUrl,
-                            Price = p.Price,
-                            Brand = p.Brand is null ? null : new BrandDTO
-                            {
-                                Id = p.Brand.Id,
-                                Name = p.Brand.Name
-                            }
-                        });
+                       .Select(p => p.ToDTO());
 
             if (Filter.SectionId != null)
                 products = products.Where(product => product.SectionId == Filter.SectionId);
@@ -51,40 +40,14 @@ namespace WebStore.Infrastructure.Implementations
 
             return products
                .AsEnumerable()
-               .Select(p => new ProductDTO
-                {
-                    Id = p.Id,
-                    Name = p.Name,
-                    Order = p.Order,
-                    ImageUrl = p.ImageUrl,
-                    Price = p.Price,
-                    Brand = p.Brand is null ? null : new BrandDTO
-                    {
-                        Id = p.Brand.Id,
-                        Name = p.Brand.Name
-                    }
-                });
+               .Select(ProductMapper.ToDTO);
         }
 
-        public ProductDTO GetProductById(int id)
-        {
-            var p = _db.Products
+        public ProductDTO GetProductById(int id) =>
+            _db.Products
                .Include(product => product.Brand)
                .Include(product => product.Section)
-               .FirstOrDefault(product => product.Id == id);
-            return new ProductDTO
-            {
-                Id = p.Id,
-                Name = p.Name,
-                Order = p.Order,
-                ImageUrl = p.ImageUrl,
-                Price = p.Price,
-                Brand = p.Brand is null ? null : new BrandDTO
-                {
-                    Id = p.Brand.Id,
-                    Name = p.Brand.Name
-                }
-            };
-        }
+               .FirstOrDefault(product => product.Id == id)
+               .ToDTO();
     }
 }

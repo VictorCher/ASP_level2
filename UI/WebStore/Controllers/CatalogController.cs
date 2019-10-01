@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using WebStore.Domain.Entities;
 using WebStore.Infrastructure.Interfaces;
 using WebStore.Infrastructure.Map;
+using WebStore.Services.Map;
 using WebStore.ViewModels;
 
 namespace WebStore.Controllers
@@ -26,14 +27,7 @@ namespace WebStore.Controllers
                 BrandId = BrandId,
                 SectionId = SectionId,
                 Products = products
-                   .Select(dto => new Product
-                    {
-                        Id = dto.Id,
-                        Name = dto.Name,
-                        Order = dto.Order,
-                        Price = dto.Order,
-                        ImageUrl = dto.ImageUrl
-                    })
+                   .Select(product => product.FromDTO())
                    .Select(ProductViewModelMapper.CreateViewModel)
             };
 

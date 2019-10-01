@@ -19,8 +19,10 @@ using WebStore.Infrastructure.Implementations;
 using WebStore.Infrastructure.Interfaces;
 using WebStore.Infrastructure.Middleware;
 using WebStore.Interfaces.Api;
+using WebStore.Interfaces.Services;
 using WebStore.Logger;
 using WebStore.Models;
+using WebStore.Services;
 using WebStore.Services.Data;
 
 namespace WebStore
@@ -38,7 +40,8 @@ namespace WebStore
 
             services.AddSingleton<IEmployeesData, EmployeesClient>();
             services.AddScoped<IProductData, ProductsClient>();
-            services.AddScoped<ICartService, CookieCartService>();
+            services.AddScoped<ICartStore, CookiesCartStore>();
+            services.AddScoped<ICartService, CartService>();
             services.AddScoped<IOrderService, OrdersClient>();
 
             services.AddIdentity<User, IdentityRole>().AddDefaultTokenProviders();

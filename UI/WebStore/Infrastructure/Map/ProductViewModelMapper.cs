@@ -12,6 +12,7 @@ namespace WebStore.Infrastructure.Map
             model.Order = product.Order;
             model.ImageUrl = product.ImageUrl;
             model.Price = product.Price;
+            model.Brand = product.Brand?.Name;
         }
 
         public static ProductViewModel CreateViewModel(this Product product)
@@ -27,6 +28,10 @@ namespace WebStore.Infrastructure.Map
             product.Order = model.Order;
             product.ImageUrl = model.ImageUrl;
             product.Price = model.Price;
+            product.Brand = new Brand
+            {
+                Name = model.Name
+            };
         }
 
         public static Product Create(this ProductViewModel model)

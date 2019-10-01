@@ -9,6 +9,7 @@ using WebStore.Domain.DTO.Product;
 using WebStore.Domain.Entities;
 using WebStore.Domain.Models;
 using WebStore.Infrastructure.Interfaces;
+using WebStore.Services.Map;
 
 namespace WebStore.Infrastructure.Implementations
 {
@@ -28,44 +29,10 @@ namespace WebStore.Infrastructure.Implementations
                .Include(order => order.User)
                .Include(order => order.OrderItems)
                .Where(order => order.User.UserName == UserName)
-               .Select(order => new OrderDTO
-                {
-                    Id = order.Id,
-                    Name = order.Name,
-                    Address = order.Address,
-                    Date = order.Date,
-                    Phone = order.Phone,
-                    OrderItems = order.OrderItems
-                       .Select(item => new OrderItemDTO
-                        {
-                            Id = item.Id,
-                            Price = item.Price,
-                            Quantity = item.Quantity
-                        })
-                       .ToArray()
-                })
-                .ToArray();
+               .Select(order => order.ToDTO())
+               .ToArray();
 
-        public OrderDTO GetOrderById(int id)
-        {
-            var order = _db.Orders.Include(o => o.OrderItems).FirstOrDefault(o => o.Id == id);
-            return new OrderDTO
-            {
-                Id = order.Id,
-                Name = order.Name,
-                Address = order.Address,
-                Date = order.Date,
-                Phone = order.Phone,
-                OrderItems = order.OrderItems
-                   .Select(item => new OrderItemDTO
-                    {
-                        Id = item.Id,
-                        Price = item.Price,
-                        Quantity = item.Quantity
-                    })
-                   .ToArray()
-            };
-        }
+        public OrderDTO GetOrderById(int id) => _db.Orders.Include(o => o.OrderItems).FirstOrDefault(o => o.Id == id).ToDTO();
 
         public OrderDTO CreateOrder(CreateOrderModel OrderModel, string UserName)
         {
@@ -104,22 +71,7 @@ namespace WebStore.Infrastructure.Implementations
                 _db.SaveChanges();
                 transaction.Commit();
 
-                return new OrderDTO
-                {
-                    Id = order.Id,
-                    Name = order.Name,
-                    Address = order.Address,
-                    Date = order.Date,
-                    Phone = order.Phone,
-                    OrderItems = order.OrderItems
-                       .Select(item => new OrderItemDTO
-                        {
-                            Id = item.Id,
-                            Price = item.Price,
-                            Quantity = item.Quantity
-                        })
-                       .ToArray()
-                };
+                return order.ToDTO();
             }
         }
     }
