@@ -1,8 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using WebStore.Data;
+using WebStore.Domain.DTO;
+using WebStore.Domain.DTO.Product;
 using WebStore.Domain.Entities;
 using WebStore.Infrastructure.Interfaces;
+using WebStore.Services.Map;
 
 namespace WebStore.Infrastructure.Implementations
 {
@@ -12,17 +15,19 @@ namespace WebStore.Infrastructure.Implementations
 
         public IEnumerable<Brand> GetBrands() => TestData.Brands;
 
-        public IEnumerable<Product> GetProducts(ProductFilter Filter)
+        public IEnumerable<ProductDTO> GetProducts(ProductFilter Filter)
         {
             var products = TestData.Products;
-            if (Filter is null) return products;
+            if (Filter is null) return products.Select(product => product.ToDTO());
+
             if (Filter.BrandId != null)
                 products = products.Where(product => product.BrandId == Filter.BrandId);
             if (Filter.SectionId != null)
                 products = products.Where(product => product.SectionId == Filter.SectionId);
-            return products;
+            return products.Select(product => product.ToDTO());
         }
 
-        public Product GetProductById(int id) => TestData.Products.FirstOrDefault(product => product.Id == id);
+        public ProductDTO GetProductById(int id) => 
+            TestData.Products.FirstOrDefault(p => p.Id == id).ToDTO();
     }
 }

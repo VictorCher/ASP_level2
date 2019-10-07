@@ -2,9 +2,10 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using WebStore.DAL.Context;
+using WebStore.Data;
 using WebStore.Domain.Entities;
 
-namespace WebStore.Data
+namespace WebStore.Services.Data
 {
     public class WebStoreContextInitializer
     {
@@ -13,8 +14,8 @@ namespace WebStore.Data
         private readonly RoleManager<IdentityRole> _RoleManager;
 
         public WebStoreContextInitializer(
-            WebStoreContext db, 
-            UserManager<User> UserManager, 
+            WebStoreContext db,
+            UserManager<User> UserManager,
             RoleManager<IdentityRole> RoleManager)
         {
             _db = db;

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using WebStore.Domain.Entities;
 using WebStore.Infrastructure.Interfaces;
 using WebStore.Infrastructure.Map;
+using WebStore.Services.Map;
 using WebStore.ViewModels;
 
 namespace WebStore.Controllers
@@ -25,7 +26,9 @@ namespace WebStore.Controllers
             {
                 BrandId = BrandId,
                 SectionId = SectionId,
-                Products = products.Select(ProductViewModelMapper.CreateViewModel)
+                Products = products
+                   .Select(product => product.FromDTO())
+                   .Select(ProductViewModelMapper.CreateViewModel)
             };
 
             return View(catalog_model);

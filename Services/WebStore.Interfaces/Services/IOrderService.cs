@@ -1,15 +1,17 @@
 ﻿using System.Collections.Generic;
+using WebStore.Domain.DTO.Order;
 using WebStore.Domain.Entities;
+using WebStore.Domain.Models;
 using WebStore.ViewModels;
 
 namespace WebStore.Infrastructure.Interfaces
 {
     public interface IOrderService
     {
-        IEnumerable<Order> GetUserOrders(string UserName);
+        IEnumerable<OrderDTO> GetUserOrders(string UserName);
 
-        Order GetOrderById(int id);
+        OrderDTO GetOrderById(int id);
 
-        Order CreateOrder(OrderViewModel OrderModel, CartViewModel CartModel, string UserName);
+        OrderDTO CreateOrder(CreateOrderModel OrderModel, string UserName);
     }
 }
