@@ -8,7 +8,7 @@ namespace WebStore.Controllers
     {
         private readonly ILogger<HomeController> _Logger;
 
-        public HomeController(ILogger<HomeController> Logger) { _Logger = Logger; }
+        public HomeController(ILogger<HomeController> Logger) => _Logger = Logger;
 
         //[ActionFilterAsync]
         public IActionResult Index() => View();

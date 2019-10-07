@@ -9,7 +9,11 @@ namespace WebStore.Infrastructure.Interfaces
     {
         IEnumerable<Section> GetSections();
 
+        Section GetSectionById(int id);
+
         IEnumerable<Brand> GetBrands();
+
+        Brand GetBrandById(int id);
 
         IEnumerable<ProductDTO> GetProducts(ProductFilter Filter);
 

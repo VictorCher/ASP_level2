@@ -13,7 +13,11 @@ namespace WebStore.Infrastructure.Implementations
     {
         public IEnumerable<Section> GetSections() => TestData.Sections;
 
+        public Section GetSectionById(int id) => TestData.Sections.FirstOrDefault(s => s.Id == id);
+
         public IEnumerable<Brand> GetBrands() => TestData.Brands;
+
+        public Brand GetBrandById(int id) => TestData.Brands.FirstOrDefault(b => b.Id == id);
 
         public IEnumerable<ProductDTO> GetProducts(ProductFilter Filter)
         {

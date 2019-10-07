@@ -81,31 +81,31 @@
                     </div>
                     <div class="mainmenu pull-left">
                         <ul class="nav navbar-nav collapse navbar-collapse">
-                            <li><a asp-controller="Home" asp-action="Index" class="active">Главная</a></li>
+                            <li><a is-active-route asp-controller="Home" asp-action="Index">Главная</a></li>
                             <li class="dropdown">
-                                <a href="#">Магазин<i class="fa fa-angle-down"></i></a>
+                                <a is-active-route ignore-action asp-controller="Catalog" asp-action="Shop">Магазин<i class="fa fa-angle-down"></i></a>
                                 <ul role="menu" class="sub-menu">
-                                    <li><a asp-controller="Catalog" asp-action="Shop">Товары</a></li>
-                                    <li><a asp-controller="Catalog" asp-action="ProductDetails" asp-route-id="1">Детали товара</a></li>
-                                    <li><a asp-controller="Cart" asp-action="Details">Корзина</a></li>
-                                    <li><a asp-controller="Account" asp-action="Login">Вход</a></li>
+                                    <li><a is-active-route asp-controller="Catalog" asp-action="Shop">Товары</a></li>
+                                    <li><a is-active-route asp-controller="Catalog" asp-action="ProductDetails" asp-route-id="1">Детали товара</a></li>
+                                    <li><a is-active-route asp-controller="Cart" asp-action="Details">Корзина</a></li>
+                                    <li><a is-active-route asp-controller="Account" asp-action="Login">Вход</a></li>
                                 </ul>
                             </li>
                             <li class="dropdown">
-                                <a href="#">Blog<i class="fa fa-angle-down"></i></a>
+                                <a is-active-route asp-controller="Home" asp-action="Blog">Blog<i class="fa fa-angle-down"></i></a>
                                 <ul role="menu" class="sub-menu">
-                                    <li><a asp-controller="Home" asp-action="Blog">Список блогов</a></li>
-                                    <li><a asp-controller="Home" asp-action="BlogSingle">Блог</a></li>
+                                    <li><a is-active-route asp-controller="Home" asp-action="Blog">Список блогов</a></li>
+                                    <li><a is-active-route asp-controller="Home" asp-action="BlogSingle">Блог</a></li>
                                 </ul>
                             </li>
-                            <li><a asp-controller="Home" asp-action="NotFoundPage">Ошибка 404</a></li>
-                            <li><a asp-controller="Home" asp-action="ContactUs">Контакты</a></li>
-                            <li><a asp-controller="Employes" asp-action="Index">Сотрудники</a></li>
+                            <li><a is-active-route asp-controller="Home" asp-action="NotFoundPage">Ошибка 404</a></li>
+                            <li><a is-active-route asp-controller="Home" asp-action="ContactUs">Контакты</a></li>
+                            <li><a is-active-route asp-controller="Employes" asp-action="Index">Сотрудники</a></li>
                             <li class="dropdown">
-                                <a href="#">Тесты<i class="fa fa-angle-down"></i></a>
+                                <a is-active-route asp-controller="WebApiTest" asp-action="Index">Тесты<i class="fa fa-angle-down"></i></a>
                                 <ul role="menu" class="sub-menu">
-                                    <li><a asp-controller="WebApiTest" asp-action="Index">WebAPI</a></li>
-                                    <li><a asp-controller="Home" asp-action="ThrowException">Тестовое исключение</a></li>
+                                    <li><a is-active-route asp-controller="WebApiTest" asp-action="Index">WebAPI</a></li>
+                                    <li><a is-active-route asp-controller="Home" asp-action="ThrowException">Тестовое исключение</a></li>
                                 </ul>
                             </li>
                         </ul>
