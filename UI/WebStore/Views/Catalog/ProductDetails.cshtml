@@ -62,10 +62,12 @@
                                 <span>@Model.Price.ToString("C")</span>
                                 <label>Количество:</label>
                                 <input type="text" value="3" />
-                                <button type="button" class="btn btn-fefault cart">
+                                <a href="#" 
+                                   class="btn btn-default cart CallAddToCart"
+                                   data-id="@Model.Id">
                                     <i class="fa fa-shopping-cart"></i>
                                     Добавить в корзину
-                                </button>
+                                </a>
                             </span>
                             <p><b>Доступность:</b> На складе</p>
                             <p><b>Состояние:</b> Новый</p>

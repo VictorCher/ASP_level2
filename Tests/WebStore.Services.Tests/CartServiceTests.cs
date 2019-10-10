@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using WebStore.Domain.DTO;
+using WebStore.Domain.DTO.Product;
 using WebStore.Domain.Entities;
 using WebStore.Infrastructure.Implementations;
 using WebStore.Infrastructure.Interfaces;
@@ -223,7 +224,7 @@ namespace WebStore.Services.Tests
             var product_data_mock = new Mock<IProductData>();
             product_data_mock
                .Setup(c => c.GetProducts(It.IsAny<ProductFilter>()))
-               .Returns(products);
+               .Returns(new PagedProductDTO { Products = products });
 
             var cart_store_mock = new Mock<ICartStore>();
             cart_store_mock

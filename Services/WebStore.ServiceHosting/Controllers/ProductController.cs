@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebStore.Domain.DTO;
+using WebStore.Domain.DTO.Product;
 using WebStore.Domain.Entities;
 using WebStore.Infrastructure.Interfaces;
 
@@ -40,7 +41,7 @@ namespace WebStore.ServiceHosting.Controllers
         /// <param name="Filter">Критерии фильтрации товаров</param>
         /// <returns>Список отфильтрованных товаров</returns>
         [HttpPost, ActionName("Post")]
-        public IEnumerable<ProductDTO> GetProducts([FromBody] ProductFilter Filter) => _ProductData.GetProducts(Filter);
+        public PagedProductDTO GetProducts([FromBody] ProductFilter Filter) => _ProductData.GetProducts(Filter);
 
         /// <summary>Получить товар по идентификатору</summary>
         /// <param name="id">Идентификатор товара</param>
