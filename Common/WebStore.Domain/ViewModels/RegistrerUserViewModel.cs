@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc;
 
 namespace WebStore.ViewModels
 {
@@ -6,7 +7,8 @@ namespace WebStore.ViewModels
     public class RegistrerUserViewModel
     {
         /// <summary>Имя пользвоателя</summary>
-        [Display(Name = "Имя пользвоателя"), MaxLength(256, ErrorMessage = "Максимальная длина 256 символов")]
+        [Display(Name = "Имя пользвоателя"), Required, MaxLength(256, ErrorMessage = "Максимальная длина 256 символов")]
+        [Remote("IsUserNameFree", "Account", ErrorMessage = "Пользователь с таким именем уже существует")]
         public string UserName { get; set; }
 
         /// <summary>Пароль</summary>

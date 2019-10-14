@@ -1,0 +1,74 @@
+﻿
+@{
+    ViewData["Title"] = "Ненавязчивый AJAX";
+}
+
+<h3>@ViewBag.Title</h3>
+
+<div class="row">
+    <div class="col-sm-4">
+        <h4>Рендер на стороне сервера</h4>
+        
+        <a href="#" data-ajax="true"
+           data-ajax-url="@Url.Action("GetTestView", "AjaxTest")"
+           data-ajax-update="#ServerPanel"
+           data-ajax-loading="#ServerSpinner"
+        >
+            Загрузка
+        </a>
+        <span id="ServerSpinner" style="display: none">
+            <i class="fa fa-spinner fa-spin"></i>
+        </span>
+        <div id="ServerPanel"></div>
+    </div>
+
+    <div class="col-sm-4">
+        <h4>Рендер на стороне клиента</h4>
+        
+        <a href="#" data-ajax="true"
+           data-ajax-url="@Url.Action("GetJSON", "AjaxTest", new { id = 123, msg = "Hello World!" })"
+           data-ajax-loading="#ClientSpinner"
+           data-ajax-success="OnDataLoaded"
+        >
+            Загрузка
+        </a>
+        <span id="ClientSpinner" style="display: none">
+            <i class="fa fa-spinner fa-spin"></i>
+        </span>
+        <div id="ClientPanel"></div>
+    </div>
+
+    <div class="col-sm-4">
+        <h4>Рендер с помощью JS</h4>
+        
+        <a href="#" id="LoadDataButton">Загрузка</a>
+        
+        <div id="JSPanel"></div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="~/lib/jquery-ajax-unobtrusive/dist/jquery.unobtrusive-ajax.min.js"></script>
+    
+    <script>
+        OnDataLoaded = data => {
+            var host = $("#ClientPanel");
+            host.empty();
+            host.append("msg:" + data.message);
+            host.append("<br/>time:" + data.serverTime);
+        }
+
+        $("#LoadDataButton").click(() => {
+            console.log("Send data to server...");
+
+            $.get("@Url.Action("GetJSON")", { id: 321, msg: "Hello World!" })
+                .done(data => {
+                    const host = $("#JSPanel");
+                    host.empty();
+                    host.append(data.message);
+                    host.append(data.serverTime);
+                });
+        });
+    </script>
+}

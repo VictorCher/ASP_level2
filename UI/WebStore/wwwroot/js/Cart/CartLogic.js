@@ -7,16 +7,16 @@
 		getCartViewLink: ""
 	},
 
-	init: function (properties)
+	init: properties =>
 	{
 		$.extend(Cart._properties, properties);
 
 		Cart.initEvents();
 	},
 
-	initEvents: function ()
+	initEvents: () =>
 	{
-		$("a.CallAddToCart").click(Cart.addToCart);
+		$(".add-to-cart").click(Cart.addToCart);
 		$(".cart_quantity_up").click(Cart.incrementItem);
 		$(".cart_quantity_down").click(Cart.decrementItem);
 		$(".cart_quantity_delete").click(Cart.removeFromCart);
@@ -26,67 +26,66 @@
 	{
 		var button = $(this);
 		event.preventDefault();
-		var id = button.data("id");
+		const id = button.data("id");
 
-		$.get(Cart._properties.addToCartLink + "/" + id)
-			.done(function ()
+		$.get(`${Cart._properties.addToCartLink}/${id}`)
+			.done(() =>
 			{
 				Cart.showToolTip(button);
 				Cart.refreshCartView();
 			})
-			.fail(function () { console.log("addToCart error"); });
+			.fail(() => console.log("addToCart error"));
 	},
 
-	showToolTip: function (button)
+	showToolTip: button =>
 	{
 		button.tooltip({ title: "Добавлено в корзину" }).tooltip("show");
-		setTimeout(function ()
-		{
-			button.tooltip("destroy");
-		}, 500);
+		setTimeout(() => button.tooltip("destroy"), 500);
 	},
 
-	refreshCartView: function ()
+	refreshCartView: () =>
 	{
 		var container = $("#cartContainer");
 		$.get(Cart._properties.getCartViewLink)
-			.done(function (result) { container.html(result); })
-			.fail(function () { console.log("refreshCartView error"); });
+			.done(result =>  container.html(result))
+			.fail(() => console.log("refreshCartView error"));
 	},
 
 	incrementItem: function (event)
 	{
-		var button = $(this);
+		const button = $(this);
 		event.preventDefault();
-		var id = button.data("id");
+		const id = button.data("id");
 		var container = button.closest("tr");
 
-		$.get(Cart._properties.addToCartLink + "/" + id)
-			.done(function ()
+		$.get(`${Cart._properties.addToCartLink}/${id}`)
+			.done(() =>
 			{
-				var value = parseInt($(".cart_quantity_input", container).val());
-				$(".cart_quantity_input", container).val(value + 1);
+				const quantityInput = $(".cart_quantity_input", container);
+				var value = parseInt(quantityInput.val());
+				quantityInput.val(value + 1);
 				Cart.refreshPrice(container);
 				Cart.refreshCartView();
 			})
-			.fail(function () { console.log("incrementItem error"); });
+			.fail(() => console.log("incrementItem error"));
 	},
 
 	decrementItem: function (event)
 	{
-		var button = $(this);
+		const button = $(this);
 		event.preventDefault();
-		var id = button.data("id");
+		const id = button.data("id");
 		var container = button.closest("tr");
 
-		$.get(Cart._properties.decrementLink + "/" + id)
-			.done(function ()
+		$.get(`${Cart._properties.decrementLink}/${id}`)
+			.done(() =>
 			{
-				var value = parseInt($(".cart_quantity_input", container).val());
+				const quantityInput = $(".cart_quantity_input", container);
+				var value = parseInt(quantityInput.val());
 
 				if (value > 1)
 				{
-					$(".cart_quantity_input", container).val(value - 1);
+					quantityInput.val(value - 1);
 					Cart.refreshPrice(container);
 				} else
 				{
@@ -94,49 +93,45 @@
 					Cart.refreshTotalPrice();
 				}
 			})
-			.fail(function () { console.log("decrementItem error"); });
+			.fail(() => { console.log("decrementItem error"); });
 	},
 
 	removeFromCart: function (event)
 	{
 		var button = $(this);
 		event.preventDefault();
-		var id = button.data("id");
+		const id = button.data("id");
 
-		$.get(Cart._properties.removeFromCartLink + "/" + id)
-			.done(function ()
+		$.get(`${Cart._properties.removeFromCartLink}/${id}`)
+			.done(() =>
 			{
 				button.closest("tr").remove();
 				Cart.refreshTotalPrice();
 			})
-			.fail(function () { console.log("removeFromCart error"); });
+			.fail(() => console.log("removeFromCart error"));
 	},
 
-	refreshPrice: function (container)
+	refreshPrice: container =>
 	{
 		var quantity = parseInt($(".cart_quantity_input", container).val());
 		var price = parseFloat($(".cart_price", container).data("price"));
 		var totalPrice = quantity * price;
 
-		var value = totalPrice.toLocaleString("ru-RU", { style: "currency", currency: "RUB" });
-
-		$(".cart_total_price", container).data("price", totalPrice);
-		$(".cart_total_price", container).html(value);
+		const priceInfo = $(".cart_total_price", container);
+		priceInfo.data("price", totalPrice);
+		priceInfo.html(totalPrice.toLocaleString("ru-RU", { style: "currency", currency: "RUB" }));
 
 		Cart.refreshTotalPrice();
 	},
 
-	refreshTotalPrice: function ()
+	refreshTotalPrice: () =>
 	{
 		var total = 0;
 
-		$(".cart_total_price").each(function ()
-		{
-			var price = parseFloat($(this).data("price"));
-			total += price;
+		$(".cart_total_price").each(function () {
+			total += parseFloat($(this).data("price"));
 		});
 
-		var value = total.toLocaleString("ru-RU", { style: "currency", currency: "RUB" });
-		$("#totalOrderSum").html(value);
+		$("#totalOrderSum").html(total.toLocaleString("ru-RU", { style: "currency", currency: "RUB" }));
 	}
 };

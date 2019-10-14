@@ -19,7 +19,9 @@
             </div>
 
             <div class="col-sm-9 padding-right">
-                @await Html.PartialAsync("Partial/_FeaturesItems", Model.Products)
+                <div id="itemsContainer">
+                    @await Html.PartialAsync("Partial/_FeaturesItems", Model.Products)
+                </div>
                 
                 <paging page-model="@Model.PageViewModel"
                         page-action="Shop"
@@ -30,3 +32,14 @@
         </div>
     </div>
 </section>
+
+@section Scripts
+{
+    <script src="~/lib/jquery-loading-overlay/loadingoverlay.min.js"></script>
+    <script src="~/js/Shop/ProductItems.js" asp-append-version="true"></script>
+    <script>
+        ProductItems.init({
+            getUrl: "@Url.Action("GetFiltredItems","Catalog")"
+        });
+    </script>
+}
