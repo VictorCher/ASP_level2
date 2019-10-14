@@ -4,26 +4,35 @@
         <name>WebStore.ServiceHosting</name>
     </assembly>
     <members>
-        <member name="T:WebStore.ServiceHosting.Controllers.ProductController">
-            <summary>Управление товарами</summary>
+        <member name="T:WebStore.ServiceHosting.Controllers.OrdersApiController">
+            <summary>Контроллер сервиса управления заказами</summary>
         </member>
-        <member name="M:WebStore.ServiceHosting.Controllers.ProductController.GetSections">
-            <summary>Получить секции товаров</summary>
-            <returns>Существующие секции товаров</returns>
+        <member name="M:WebStore.ServiceHosting.Controllers.OrdersApiController.#ctor(WebStore.Interfaces.Servcies.IOrderService,Microsoft.Extensions.Logging.ILogger{WebStore.ServiceHosting.Controllers.OrdersApiController})">
+            <summary>Инициализация контроллера управления сервисами заказов</summary>
+            <param name="OrderService">Сервис заказов</param>
+            <param name="Logger">Логгер</param>
         </member>
-        <member name="M:WebStore.ServiceHosting.Controllers.ProductController.GetBrands">
-            <summary>Получить бренды</summary>
-            <returns>Существующие бренды</returns>
+        <member name="M:WebStore.ServiceHosting.Controllers.OrdersApiController.GetAll">
+            <summary>Получить все заказы</summary>
+            <remarks>Выдаёт последовательность всех заказов, хранимых в источнике данных сервиса</remarks>
+            <code>GetAll();</code>
+            <returns>Перечисление заказов</returns>
         </member>
-        <member name="M:WebStore.ServiceHosting.Controllers.ProductController.GetProducts(WebStore.Domain.Entities.ProductFilter)">
-            <summary>Получить список товаров по указанным критериям фильтрации</summary>
-            <param name="Filter">Критерии фильтрации товаров</param>
-            <returns>Список отфильтрованных товаров</returns>
+        <member name="M:WebStore.ServiceHosting.Controllers.OrdersApiController.GetUserOrders(System.String)">
+            <summary>Получить все заказы указанного пользователя</summary>
+            <param name="UserName">Имя пользователя, заказы которого требуется извлечь</param>
+            <returns>Перечисление заказов указанного пользователя</returns>
         </member>
-        <member name="M:WebStore.ServiceHosting.Controllers.ProductController.GetProductById(System.Int32)">
-            <summary>Получить товар по идентификатору</summary>
-            <param name="id">Идентификатор товара</param>
-            <returns>Товар с указанным идентификатором</returns>
+        <member name="M:WebStore.ServiceHosting.Controllers.OrdersApiController.GetOrderById(System.Int32)">
+            <summary>Получить заказ с указанным идентификатором</summary>
+            <param name="id">Идентификатор заказа</param>
+            <returns>Заказ с указанным идентификатором, либо пустая ссылка</returns>
+        </member>
+        <member name="M:WebStore.ServiceHosting.Controllers.OrdersApiController.CreateOrder(WebStore.Domain.ViewModels.CreateOrderModel,System.String)">
+            <summary>Создать заказ для указанного пользователя</summary>
+            <param name="OrderModel">Информация о заказе</param>
+            <param name="UserName">Имя пользователя, для которого требуется сформировать заказ</param>
+            <returns>Сформированный заказ</returns>
         </member>
     </members>
 </doc>
