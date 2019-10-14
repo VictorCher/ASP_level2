@@ -46,11 +46,17 @@ namespace WebStore.TagHelpers
             var a = new TagBuilder("a");
 
             if (PageNumber == PageModel.PageNumber)
+            {
+                a.MergeAttribute("data-page", PageModel.PageNumber.ToString());
                 li.AddCssClass("active");
+            }
             else
             {
                 PageUrlValues["page"] = PageNumber;
-                a.Attributes["href"] = UrlHelper.Action(PageAction, PageUrlValues);
+                a.Attributes["href"] = "#"; //UrlHelper.Action(PageAction, PageUrlValues);
+                foreach (var (key, value) in PageUrlValues.Where(p => p.Value != null))
+                    a.MergeAttribute($"data-{key}", value.ToString());
+
             }
 
             a.InnerHtml.AppendHtml(PageNumber.ToString());

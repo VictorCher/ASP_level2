@@ -15,6 +15,7 @@ using WebStore.Clients.Values;
 using WebStore.DAL.Context;
 using WebStore.Data;
 using WebStore.Domain.Entities;
+using WebStore.Hubs;
 using WebStore.Infrastructure.Implementations;
 using WebStore.Infrastructure.Interfaces;
 using WebStore.Infrastructure.Middleware;
@@ -35,6 +36,8 @@ namespace WebStore
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSignalR();
+
             services.AddTransient<IValuesService, ValuesClient>();
 
 
@@ -98,6 +101,8 @@ namespace WebStore
 
             app.UseMiddleware<ErrorHandlingMiddleware>();
             //app.UseMiddleware(typeof(ErrorHandlingMiddleware));
+
+            app.UseSignalR(routes => routes.MapHub<InformationHub>("/info"));
 
             //app.UseMvcWithDefaultRoute(); // "default" : "{controller=Home}/{action=Index}/{id?}"
             app.UseMvc(route =>

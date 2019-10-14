@@ -83,7 +83,7 @@ namespace WebStore.Infrastructure.Implementations
 
             return new CartViewModel
             {
-                Items = _CartStore.Cart.Items.ToDictionary(
+                Items = _CartStore.Cart.Items.Where(i => i.ProductId > 0).ToDictionary(
                     x => products_view_models.First(p => p.Id == x.ProductId),
                     x => x.Quantity)
             };

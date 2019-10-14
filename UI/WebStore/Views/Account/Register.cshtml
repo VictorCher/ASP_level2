@@ -15,13 +15,35 @@
                         @*@Html.AntiForgeryToken()*@
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-                        <input asp-for="UserName" placeholder="@nameof(Model.UserName)"/>
-                        <input asp-for="Password" placeholder="@nameof(Model.Password)"/>
-                        <input asp-for="ConfirmPassword" placeholder="@nameof(Model.ConfirmPassword)"/>
-                        <button type="submit" class="btn btn-default">Зарегистрироваться</button>
+                        <div class="form-group">
+                            <label asp-for="UserName"></label>
+                            <input asp-for="UserName" placeholder="@nameof(Model.UserName)" />
+                            <span asp-validation-for="UserName" class="text-danger" ></span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label asp-for="Password"></label>
+                            <input asp-for="Password" placeholder="@nameof(Model.Password)" />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="ConfirmPassword"></label>
+                            <input asp-for="ConfirmPassword" placeholder="@nameof(Model.ConfirmPassword)" />
+                            <span asp-validation-for="ConfirmPassword" class="text-danger" ></span>
+                        </div>
+
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-default">Зарегистрироваться</button>
+                        </div>
                     </form>
                 </div><!--/sign up form-->
             </div>
         </div>
     </div>
 </section><!--/form-->
+
+@section Scripts
+{
+    <partial name="_ValidationScripsPartial"/>
+}

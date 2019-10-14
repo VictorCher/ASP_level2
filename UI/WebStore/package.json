@@ -1,0 +1,8 @@
+{
+  "version": "1.0.0",
+  "name": "webstore",
+  "private": true,
+  "devDependencies": {
+    "jQuery": "1.7.4" 
+  }
+}

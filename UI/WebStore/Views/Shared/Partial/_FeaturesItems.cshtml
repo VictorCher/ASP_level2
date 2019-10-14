@@ -29,7 +29,7 @@
                                <h2>@product.Price.ToString("C")</h2>
                                <p><a asp-controller="Catalog" asp-action="ProductDetails" asp-route-id="@product.Id" asp-route-FromBrand="true">@product.Name</a></p>
                                <a href="#" data-id="@product.Id"
-                                  class="btn btn-default add-to-cart CallAddToCart">
+                                  class="btn btn-default add-to-cart">
                                    <i class="fa fa-shopping-cart"></i>Добавить в корзину
                                </a>
                            </div>
@@ -42,7 +42,7 @@
                            <h2>@product.Price.ToString("C")</h2>
                            <p>@product.Name</p>
                            <a href="#" data-id="@product.Id"
-                              class="btn btn-default add-to-cart CallAddToCart">
+                              class="btn btn-default add-to-cart">
                                <i class="fa fa-shopping-cart"></i>Добавить в корзину
                            </a>
                        </div>
@@ -51,7 +51,7 @@
                                <h2>@product.Price.ToString("C")</h2>
                                <p><a asp-controller="Catalog" asp-action="ProductDetails" asp-route-id="@product.Id">@product.Name</a></p>
                                <a href="#" data-id="@product.Id"
-                                  class="btn btn-default add-to-cart CallAddToCart">
+                                  class="btn btn-default add-to-cart">
                                    <i class="fa fa-shopping-cart"></i>Добавить в корзину
                                </a>
                            </div>
