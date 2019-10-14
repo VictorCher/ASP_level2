@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using WebStore.Data;
 using WebStore.Domain.DTO;
@@ -19,16 +20,29 @@ namespace WebStore.Infrastructure.Implementations
 
         public Brand GetBrandById(int id) => TestData.Brands.FirstOrDefault(b => b.Id == id);
 
-        public IEnumerable<ProductDTO> GetProducts(ProductFilter Filter)
+        public PagedProductDTO GetProducts(ProductFilter Filter)
         {
             var products = TestData.Products;
-            if (Filter is null) return products.Select(product => product.ToDTO());
 
-            if (Filter.BrandId != null)
+            if (Filter?.BrandId != null)
                 products = products.Where(product => product.BrandId == Filter.BrandId);
-            if (Filter.SectionId != null)
+            if (Filter?.SectionId != null)
                 products = products.Where(product => product.SectionId == Filter.SectionId);
-            return products.Select(product => product.ToDTO());
+
+            var total_count = products.Count();
+
+            if (Filter?.PageSize != null)
+                products = products
+                   .Skip((Filter.Page - 1) * (int)Filter.PageSize)
+                   .Take((int)Filter.PageSize);
+
+            return new PagedProductDTO
+            {
+                Products = products
+                   .AsEnumerable()
+                   .Select(ProductMapper.ToDTO),
+                TotalCount = total_count
+            };
         }
 
         public ProductDTO GetProductById(int id) => 

@@ -44,6 +44,8 @@
 
     <script src="~/js/jquery.prettyPhoto.js" asp-append-version="true"></script>
 
+    <script src="~/js/Cart/CartLogic.js" asp-append-version="true"></script>
+
     <environment include="Development">
         @*<script src="~/js/price-range.js" asp-append-version="true"></script>
             <script src="~/js/main.js" asp-append-version="true"></script>*@
@@ -54,6 +56,17 @@
         <script src="~/js/site.min.js" asp-append-version="true"></script>
     </environment>
 
+    <script>
+        $(function() {
+            Cart.init({
+                getCartViewLink: "@Url.Action("GetCartView","Cart")",
+                addToCartLink: "@Url.Action("AddToCartAJAX","Cart")",
+                decrementLink: "@Url.Action("DecrementFromCartAJAX","Cart")",
+                removeFromCartLink: "@Url.Action("RemoveFromCartAJAX","Cart")",
+                removeAllLink: "@Url.Action("RemoveAllAJAX","Cart")"
+            });
+        });
+    </script>
 
 
     @RenderSection("Scripts", false)

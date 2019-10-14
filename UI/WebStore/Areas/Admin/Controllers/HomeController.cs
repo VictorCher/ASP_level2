@@ -19,8 +19,8 @@ namespace WebStore.Areas.Admin.Controllers
 
         public IActionResult ProductList()
         {
-            var products_dto = _ProductData.GetProducts(new ProductFilter());
-            return View(products_dto);
+            var products = _ProductData.GetProducts(new ProductFilter());
+            return View(products.Products);
         }
     }
 }
